@@ -1,237 +1,348 @@
 <template>
-  <v-container
-    fluid
-    class="bg-indigo-accent-2 d-flex justify-center"
-    height="100vh"
-  >
-    <v-layout class="layout fluid rounded-xl position-relative" height="85vh">
-      <v-row no-gutters dense class="  ">
-        <v-col cols="1" class="">
-          <v-sheet>
-            <div class="">
-              <NavigationBar />
-            </div>
-          </v-sheet>
-        </v-col>
+  <v-app>
+    <v-container
+      fluid
+      class="bg-indigo-accent-2 d-flex justify-center"
+      :height="lgAndUp ? '100vh' : ''"
+      :style="lgAndUp ? 'width: 100vw' : ''"
+    >
+      <v-layout
+        class="layout fluid overflow-visible"
+        :height="lgAndUp || mdAndDown ? '85vh' : '170vh'"
+        :width="mdAndDown ? '100%' : ''"
+        :style="mdAndDown ? 'margin-left:-15px; ' : ''"
+      >
+        <v-row no-gutters dense class="  ">
+          <v-col
+            cols="12"
+            lg="1"
+            class=""
+            md="0"
+            :class="mdAndDown && display ? 'd-none ' : ''"
+            sm="0"
+            ref="NavBavref"
+            id="navbarBasicExample"
+            
+          >
+            <v-sheet
+              class=""
+              
+            >
+              <div :class="lgAndUp ? 'rounded-xl' : ''">
+                <NavigationBar />
+              </div>
+            </v-sheet>
+          </v-col>
 
-        <v-col cols="8" class="">
-          <v-sheet class="pa-15" style="background: #f2f4fc" height="85vh">
-            <div class="" style="background: #f2f4fc">
-              <v-container fluid height="440" class="d-flex align-start dash">
-                <div class="cont">
-                  <div class="title text-primary">
-                    <h2>Business Dashboard</h2>
+          <v-col
+            fluid
+            cols="12"
+            class=""
+            lg="8"
+            :class="mdAndDow ? 'd-flex justify-center border ' : ''"
+            :width="mdAndDown ? '100%' : ''"
+          >
+            <v-sheet
+              class="pa-15"
+              style="background: #f2f4fc"
+              :height="hight_base"
+              :width="mdAndDown ? '100vw' : ''"
+            >
+              <v-container
+                fluid
+                :height="lgAndUp ? '40' : '100'"
+                class="d-flex align-start justify-space-between mt-n12"
+                :class="mdAndDown ? 'd-flex justify-space-between ' : ''"
+              >
+                <div class="d-flex">
+                  <v-app-bar-nav-icon
+                    v-if="mdAndDown"
+                    @click="showNavBar"
+                    class="text-primary d-flex mr-2"
+                    data-target="navbarBasicExample"
+                    ref="navbarBurgerRef"
+                  >
+                  </v-app-bar-nav-icon>
 
-                    <div class="icons">
-                      <v-icon icon="mdi-magnify " class="one"> </v-icon>
-                      <v-icon icon="mdi-calendar-blank" class="two"> </v-icon>
-                    </div>
-                  </div>
+                  <h2
+                    class="text-primary d-flex"
+                    :style="mdAndDown ? 'font-size:23px' : ''"
+                  >
+                    Business Dashboard
+                  </h2>
+                </div>
 
-                  <div class="row">
-                    <v-row
-                      class="mt-3 pl-15 pr-15 fill-heigh"
-                      no-gutters
-                      style="width: 800px"
+                <div class="d-flex">
+                  <v-icon icon="mdi-magnify " class="one d-flex"> </v-icon>
+                  <v-icon icon="mdi-calendar-blank" class="two d-flex">
+                  </v-icon>
+                </div>
+              </v-container>
+
+              <v-container
+                fluid
+                :class="
+                  mdAndDown
+                    ? 'd-flex justify-center align-center '
+                    : 'mt-3 mb-3'
+                "
+              >
+                <v-row
+                  dense
+                  class="mt-0 pl-15 pr-15 fill-heigh"
+                  no-gutters
+                  style="width: 800px"
+                  :class="mdAndDown ? 'd-flex justify-center' : ''"
+                >
+                  <v-col
+                    class="pa-2 rcol"
+                    cols="12"
+                    lg="4"
+                    md="6"
+                    :class="mdAndDown ? 'd-flex justify-center  mt-4' : ''"
+                  >
+                    <v-card
+                      class="d-flex card-color text-caption"
+                      height="65"
+                      width="210"
                     >
-                      <v-col cols="4" class="pa-2 rcol">
-                        <v-card
-                          class="d-flex card-color text-caption"
-                          height="65"
-                          width="210"
+                      <div>
+                        <p class="text-white mt-3 ml-5 mr-0">CUSTOMERS</p>
+                        <p
+                          class="text-white mt-1 ml-6 text-caption font-weight-thin"
                         >
-                          <div>
-                            <p class="text-white mt-3 ml-5 mr-0">CUSTOMERS</p>
-                            <p
-                              class="text-white mt-1 ml-6 text-caption font-weight-thin"
-                            >
-                              54,235
-                            </p>
-                          </div>
+                          54,235
+                        </p>
+                      </div>
 
-                          <v-icon
-                            class="ml-10 opacity-50 mt-0"
-                            icon="mdi-account-supervisor "
-                            color="white"
-                            size="70"
-                          >
-                          </v-icon>
-                        </v-card>
-                      </v-col>
-                      <v-col cols="4" class="pa-2 rcol">
-                        <v-card
-                          class="d-flex card-color text-caption"
-                          height="65"
-                          width="210"
+                      <v-icon
+                        class="ml-10 opacity-50 mt-0"
+                        icon="mdi-account-supervisor "
+                        color="white"
+                        size="70"
+                      >
+                      </v-icon>
+                    </v-card>
+                  </v-col>
+                  <v-col
+                    class="pa-2 rcol"
+                    cols="12"
+                    lg="4"
+                    md="6"
+                    :class="mdAndDown ? 'd-flex justify-center ' : ''"
+                  >
+                    <v-card
+                      class="d-flex card-color text-caption"
+                      height="65"
+                      width="210"
+                    >
+                      <div>
+                        <p class="text-white mt-3 ml-5 mr-9">INCOME</p>
+                        <p
+                          class="text-white mt-1 ml-6 text-caption font-weight-thin"
                         >
-                          <div>
-                            <p class="text-white mt-3 ml-5 mr-9">INCOME</p>
-                            <p
-                              class="text-white mt-1 ml-6 text-caption font-weight-thin"
-                            >
-                              $980,632
-                            </p>
-                          </div>
+                          $980,632
+                        </p>
+                      </div>
 
-                          <v-icon
-                            class="ml-10 opacity-50 mt-1"
-                            icon="mdi-cards"
-                            color="white"
-                            size="60"
-                          >
-                          </v-icon>
-                        </v-card>
-                      </v-col>
+                      <v-icon
+                        class="ml-10 opacity-50 mt-1"
+                        icon="mdi-cards"
+                        color="white"
+                        size="60"
+                      >
+                      </v-icon>
+                    </v-card>
+                  </v-col>
 
-                      <v-col cols="4" class="pa-2 rcol mr-10">
-                        <v-card
-                          class="d-flex card-color text-caption"
-                          height="65"
-                          width="210"
+                  <v-col
+                    class=" "
+                    cols="12"
+                    lg="4"
+                    md="6"
+                    :class="
+                      mdAndDown
+                        ? 'd-flex justify-center pa-2 rcol  '
+                        : 'pa-2 rcol mr-10'
+                    "
+                  >
+                    <v-card
+                      class="d-flex card-color text-caption"
+                      height="65"
+                      width="210"
+                    >
+                      <div>
+                        <p class="text-white mt-3 ml-5 mr-0">PRODUCTS SOLD</p>
+                        <p
+                          class="text-white mt-1 ml-6 text-caption font-weight-thin"
                         >
-                          <div>
-                            <p class="text-white mt-3 ml-5 mr-0">
-                              PRODUCTS SOLD
-                            </p>
-                            <p
-                              class="text-white mt-1 ml-6 text-caption font-weight-thin"
-                            >
-                              5,490
-                            </p>
-                          </div>
+                          5,490
+                        </p>
+                      </div>
 
-                          <v-icon
-                            class="ml-5 opacity-50 mt-4"
-                            icon="mdi-arrow-top-left"
-                            color="white"
-                            size="35"
+                      <v-icon
+                        class="ml-5 opacity-50 mt-4"
+                        icon="mdi-arrow-top-left"
+                        color="white"
+                        size="35"
+                      >
+                      </v-icon>
+                      <v-icon
+                        class="ml-0 opacity-50 mt-5"
+                        icon="mdi-arrow-top-left"
+                        color="white"
+                        size="25"
+                      >
+                      </v-icon>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+
+              <v-container
+                fluid
+                class="market mt-n2"
+                :class="mdAndDown ? 'd-flex justify-center ' : ''"
+                :height="height"
+              >
+                <h5
+                  class="text-primary d-flex"
+                  :class="mdAndDown ? 'text-center ' : ''"
+                  :style="
+                    mdAndDown
+                      ? 'font-size:23px;height:30px; display:flex;justify-content:center;position:absolute; margin-right:20px'
+                      : ''
+                  "
+                >
+                  Marketplace
+                </h5>
+
+                <v-row
+                  class="ml-1 mt-2"
+                  gutter
+                  :class="mdAndDown ? 'mt-16 d-flex justify-center ' : ''"
+                >
+                  <v-col
+                    class="mr-15 pa-8 ml-1"
+                    cols="12"
+                    lg="6"
+                    md="4"
+                    width="100"
+                    :class="mdAndDown ? 'd-flex justify-center ml-10' : ''"
+                  >
+                    <div class="card-market">
+                      <v-card height="110" class="mb-6">
+                        <div class="all">
+                          <h5 class="mt-4 ml-6 data text-primary">
+                            Data Analytics Overview
+                          </h5>
+                          <p
+                            class="mt-1 ml-6"
+                            style="
+                              font-size: 12px;
+                              color: rgb(130, 127, 127);
+                              width: 190px;
+                              font-weight: lighter;
+                            "
                           >
-                          </v-icon>
-                          <v-icon
-                            class="ml-0 opacity-50 mt-5"
-                            icon="mdi-arrow-top-left"
-                            color="white"
-                            size="25"
-                          >
-                          </v-icon>
-                        </v-card>
-                      </v-col>
-                    </v-row>
-                  </div>
-
-                  <div class="market">
-                    <h5 class="text-primary">Marketplace</h5>
-
-                    <v-row class="ml-1 mt-2" gutter>
-                      <v-col class="mr-15 pa-8 ml-1" cols="6" width="100">
-                        <div class="card-market">
-                          <v-card height="110" class="mb-6">
-                            <div class="all">
-                              <h5 class="mt-4 ml-6 data text-primary">
-                                Data Analytics Overview
-                              </h5>
-                              <p
-                                class="mt-1 ml-6"
-                                style="
-                                  font-size: 12px;
-                                  color: rgb(130, 127, 127);
-                                  width: 190px;
-                                  font-weight: lighter;
-                                "
-                              >
-                                See how your account grow and how you can boost
-                                it.
-                              </p>
-                            </div>
-
-                            <div class="pie-chart-container">
-                              <v-pie
-                                hide-slice
-                                :inner-cut="92"
-                                :palette="['#f1f0f6', '#5d5ee1']"
-                                tooltip
-                                reveal
-                                :items="items"
-                                density="compact"
-                                size="75"
-                              >
-                                <template v-slot:center>
-                                  <div class="text-center">
-                                    <div
-                                      class="text-caption font-weight-bold"
-                                      style="color: #5d5ee1"
-                                    >
-                                      START
-                                    </div>
-                                  </div>
-                                </template>
-                              </v-pie>
-                            </div>
-                          </v-card>
-
-                          <v-card height="110">
-                            <div class="chart">
-                              <h5 class="mt-4 ml-6 data text-primary">
-                                Finance Flow
-                              </h5>
-                              <p class="mt-5 ml-6  ">$2,530</p>
-                              <p
-                                class="mt-1 ml-6"
-                                style="
-                                  font-size: 12px;
-                                  color: rgb(130, 127, 127);
-                                  width: 190px;
-                                  font-weight: lighter;
-                                "
-                              >
-                                September 2021
-                              </p>
-                            </div>
-                            <ColumnChart />
-                          </v-card>
+                            See how your account grow and how you can boost it.
+                          </p>
                         </div>
-                      </v-col>
 
-                      <v-col class="ml-4" cols="3">
-                        <v-card
-                          class="border mr-15 ml-0"
-                          width="180"
-                          height="242"
+                        <div
+                          class="pie-chart-container"
+                          :style="mdAndDown ? 'margin-left: 250px;' : ''"
                         >
-                          <v-card-title
-                            class="text-caption font-weight-medium d-flex justify-center"
-                            style="color: #5d5ee1"
+                          <v-pie
+                            hide-slice
+                            :inner-cut="92"
+                            :palette="['#f1f0f6', '#5d5ee1']"
+                            tooltip
+                            reveal
+                            :items="items"
                             density="compact"
+                            size="75"
                           >
-                            UPGRADE TO PRO
-                          </v-card-title>
+                            <template v-slot:center>
+                              <div class="text-center">
+                                <div
+                                  class="text-caption font-weight-bold"
+                                  style="color: #5d5ee1"
+                                >
+                                  START
+                                </div>
+                              </div>
+                            </template>
+                          </v-pie>
+                        </div>
+                      </v-card>
 
-                          <v-divider length="180" class="ml-3 mr-3"></v-divider>
-
-                          <v-img
-                            class="align-end text-white ml-12 mt-5"
-                            height="80"
-                            width="90"
-                            src="@/imges/icons/d.png"
-                            cover
+                      <v-card height="110">
+                        <div class="chart">
+                          <h5
+                            class="mt-4 ml-6 data text-primary"
+                            style="width: 100px"
                           >
-                          </v-img>
-
-                          <v-container
-                            class="d-flex justify-center mt-1"
-                            height="70"
+                            Finance Flow
+                          </h5>
+                          <p class="mt-5 ml-6">$2,530</p>
+                          <p
+                            class="mt-1 ml-6"
+                            style="
+                              font-size: 12px;
+                              color: rgb(130, 127, 127);
+                              width: 100px;
+                              font-weight: lighter;
+                            "
                           >
-                            <div style="">
-                              <v-text class="d-flex justify-center text-primary"
-                                >$29 p/m</v-text
-                              >
-                              <p class="paragraph">
-                                100% insurance for your goods
-                              </p>
-                            </div>
-                          </v-container>
-                        </v-card>
-                        <!-- <v-card class=" d-flex justify-center " height="220">
+                            September 2021
+                          </p>
+                        </div>
+                        <ColumnChart />
+                      </v-card>
+                    </div>
+                  </v-col>
+
+                  <v-col
+                    class="ml-6"
+                    cols="12"
+                    lg="3"
+                    md="4"
+                    :class="mdAndDown ? 'd-flex justify-center ' : ''"
+                  >
+                    <v-card class="border mr-15 ml-0" :width="180" height="242">
+                      <v-card-title
+                        class="text-caption font-weight-medium d-flex justify-center"
+                        style="color: #5d5ee1"
+                        density="compact"
+                      >
+                        UPGRADE TO PRO
+                      </v-card-title>
+
+                      <v-divider length="180" class="ml-3 mr-3"></v-divider>
+
+                      <v-img
+                        class="align-end text-white ml-12 mt-5"
+                        height="80"
+                        width="90"
+                        src="@/imges/icons/d.png"
+                        cover
+                      >
+                      </v-img>
+
+                      <v-container
+                        class="d-flex justify-center mt-1"
+                        height="70"
+                      >
+                        <div style="">
+                          <p class="d-flex justify-center text-primary">
+                            $29 p/m
+                          </p>
+                          <p class="paragraph">100% insurance for your goods</p>
+                        </div>
+                      </v-container>
+                    </v-card>
+                    <!-- <v-card class=" d-flex justify-center " height="220">
 
                                    <v-card-title 
                                    
@@ -249,16 +360,20 @@
                                   </v-container>
                                  
                               </v-card> -->
-                      </v-col>
-                    </v-row>
-                  </div>
-                </div>
+                  </v-col>
+                </v-row>
               </v-container>
 
-              <v-container fluid class="mt-10" height="150">
+              <v-container
+                fluid
+                class=""
+                :height="mdAndUp ? '150' : '251'"
+                :min-width="smAndDown ? '14.1vw' : ''"
+                :class="mdAndDown ? 'd-flex justify-center mt-16 mb-n10  ' : ''"
+              >
                 <v-table
                   class="header-comfortable body-compact mr-10"
-                  style="background: #f2f4fc"
+                  style="background: #f2f4fc; position: absolute"
                 >
                   <thead>
                     <tr>
@@ -307,52 +422,77 @@
                   </tbody>
                 </v-table>
               </v-container>
-            </div>
-          </v-sheet>
-        </v-col>
+            </v-sheet>
+          </v-col>
 
-        <v-col cols="3">
-          <v-sheet class="pa-16" height="85vh">
-            <v-container fluid class="d-flex summary">
-              <h2 class="text-start text-primary">Summary</h2>
-            </v-container>
-            <v-card
-              class="mt-5 mr-15 border position-relative"
-              width="220"
-              height="120"
+          <v-col cols="12" lg="3" md="3">
+            <v-sheet
+              class="pa-16"
+              :height="smAndUp ? '85vh' : '100vh'"
+              :style="
+                lgAndUp ? 'border-radius: 0 24px 24px 0' : 'border-radius: none'
+              "
+              :width="mdAndDown ? '100vw' : ''"
             >
-              <v-card-text>
-                <div class="balance d-flex">
-                  Your Balance
+              <v-container
+                fluid
+                class="d-flex summary"
+                :class="mdAndDown ? 'd-flex justify-center ' : 'd-flex'"
+              >
+                <h2
+                  class=""
+                  :class="
+                    mdAndDown
+                      ? 'text-h4 font-weight-bold text-cnter text-primary'
+                      : 'text-start text-primary'
+                  "
+                >
+                  Summary
+                </h2>
+              </v-container>
 
-                  <v-spacer></v-spacer>
-                  <v-menu>
-                    <template v-slot:activator="{ props }">
-                      <v-btn
-                        icon="mdi-dots-vertical"
-                        color="grey-lighten-1"
-                        size="15"
-                        variant="text"
-                        v-bind="props"
-                      ></v-btn>
-                    </template>
+              <v-container
+                fluid
+                :class="mdAndDown ? 'd-flex justify-center ml-5 ' : ''"
+              >
+                <v-card
+                  class="mt-0 mr-15 border plus-position overflow-visible"
+                  width="220"
+                  height="120"
+                  md="3"
+                >
+                  <v-card-text>
+                    <div class="balance d-flex">
+                      Your Balance
 
-                    <v-list density="compact">
-                      <v-list-item
-                        density="compact"
-                        v-for="(item, i) in menu"
-                        :key="i"
-                        :value="i"
-                        class="list"
-                      >
-                        <v-list-item-title class="listTitle">{{
-                          item.title
-                        }}</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
+                      <v-spacer></v-spacer>
+                      <v-menu>
+                        <template v-slot:activator="{ props }">
+                          <v-btn
+                            icon="mdi-dots-vertical"
+                            color="grey-lighten-1"
+                            size="15"
+                            variant="text"
+                            v-bind="props"
+                          ></v-btn>
+                        </template>
 
-                  <!-- <v-icon
+                        <v-list density="compact">
+                          <v-list-item
+                            density="compact"
+                            v-for="(item, i) in menu"
+                            :key="i"
+                            :value="i"
+                            class="list"
+                          >
+                            <v-list-item-title class="listTitle">{{
+                              item.title
+                            }}</v-list-item-title>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+
+                      <!-- <v-icon
                     icon="mdi-dots-vertical"
                     color="grey-lighten-1"
                     size="15"
@@ -380,211 +520,204 @@
                     </template>
                   </v-list>
                 </v-menu> -->
+                    </div>
+
+                    <p class="text-h6 font-weight-black mt-3 mb-0 text-black">
+                      $10 632.00
+                    </p>
+
+                    <v-container fluid class="d-flex mt-0">
+                      <v-icon
+                        class="mt-1 mr-1 triangle"
+                        color="success"
+                        icon="mdi-triangle"
+                        size="10"
+                      ></v-icon>
+                      <p class="font-weight-thin text-caption">$3.250.07</p>
+                      <v-icon
+                        class="ml-10 mt-1 mr-1"
+                        color="red"
+                        icon="mdi-triangle"
+                        size="10"
+                      ></v-icon>
+                      <p class="font-weight-thin text-caption">$1.62.90</p>
+                    </v-container>
+                  </v-card-text>
+                  <div class="plus">
+                    <v-icon
+                      color="white"
+                      icon="mdi-plus"
+                      size="10"
+                      class="mt-1"
+                    >
+                    </v-icon>
+                  </div>
+                </v-card>
+              </v-container>
+
+              <v-container class="mt-0 ma-auto" height="170" width="250">
+                <div class="d-flex mr-2">
+                  <h5 class="font-weight-bold" style="color: darkblue">
+                    Activity
+                  </h5>
+                  <v-spacer></v-spacer>
+                  <a
+                    href="#"
+                    class="mt-1"
+                    style="
+                      font-size: 0.5625rem;
+                      font-weight: 750;
+                      text-decoration: none;
+                      color: #5d5ee1;
+                    "
+                    >SEE ALL</a
+                  >
                 </div>
+                <v-divider length="220" class="ml-1 mr-0 mt-2"></v-divider>
 
-                <p class="text-h6 font-weight-black mt-3 mb-0 text-black">
-                  $10 632.00
-                </p>
+                <v-container width="260" class="mt-2">
+                  <div class="d-flex">
+                    <v-icon
+                      icon="mdi-wallet"
+                      color="white"
+                      class="wallet"
+                      size="18"
+                      style="
+                        width: 2.29vw;
+                        height: 2.29vw;
+                        border-radius: 10px;
+                        background-color: #5d5ee1;
+                      "
+                    >
+                    </v-icon>
+                    <div>
+                      <p
+                        class="ml-2 font-weight-bold"
+                        style="font-size: 0.625rem"
+                      >
+                        Withdraw Earning
+                      </p>
+                      <p
+                        class="ml-2"
+                        style="font-size: 0.625rem; color: rgb(130, 127, 127)"
+                      >
+                        12:40 am
+                      </p>
+                    </div>
 
-                <v-container fluid class="d-flex mt-0">
-                  <v-icon
-                    class="mt-1 mr-1 triangle"
-                    color="success"
-                    icon="mdi-triangle"
-                    size="10"
-                  ></v-icon>
-                  <p class="font-weight-thin text-caption">$3.250.07</p>
-                  <v-icon
-                    class="ml-10 mt-1 mr-1"
-                    color="red"
-                    icon="mdi-triangle"
-                    size="10"
-                  ></v-icon>
-                  <p class="font-weight-thin text-caption">$1.62.90</p>
+                    <span
+                      style="font-size: 0.625rem; margin-left: 60px"
+                      class="mt-2"
+                      >$4,120</span
+                    >
+                  </div>
+
+                  <div class="d-flex mt-5">
+                    <v-icon
+                      icon="mdi-checkbook"
+                      color="white"
+                      class="wallet"
+                      size="18"
+                      style="
+                        width: 2.29vw;
+                        height: 2.29vw;
+                        border-radius: 10px;
+                        background-color: #5d5ee1;
+                      "
+                    >
+                    </v-icon>
+                    <div>
+                      <p
+                        class="ml-2 font-weight-bold"
+                        style="font-size: 0.625rem"
+                      >
+                        Paying Website tax
+                      </p>
+                      <p
+                        class="ml-2"
+                        style="font-size: 0.625rem; color: rgb(130, 127, 127)"
+                      >
+                        10:20 am
+                      </p>
+                    </div>
+
+                    <span
+                      style="font-size: 0.625rem; margin-left: 55px"
+                      class="mt-2"
+                      >- $230</span
+                    >
+                  </div>
                 </v-container>
-              </v-card-text>
-            </v-card>
-
-            <div class="plus">
-              <v-icon color="white" icon="mdi-plus" size="10" class="mt-1">
-              </v-icon>
-            </div>
-
-            <v-container class="mt-5 ma-auto" height="170" width="250">
-              <div class="d-flex mr-2">
-                <h5 class="font-weight-bold" style="color: darkblue">
-                  Activity
-                </h5>
-                <v-spacer></v-spacer>
-                <a
-                  href="#"
-                  class="mt-1"
-                  style="
-                    font-size: 9px;
-                    font-weight: 750;
-                    text-decoration: none;
-                    color: #5d5ee1;
-                  "
-                  >SEE ALL</a
-                >
-              </div>
-              <v-divider length="220" class="ml-1 mr-0 mt-2"></v-divider>
-
-              <v-container width="260" class="mt-2">
-                <div class="d-flex">
-                  <v-icon
-                    icon="mdi-wallet"
-                    color="white"
-                    class="wallet"
-                    size="18"
+                <v-container class="top">
+                  <p
+                    class="mr-10"
                     style="
-                      width: 35px;
-                      height: 35px;
-                      border-radius: 10px;
-                      background-color: #5d5ee1;
+                      font-size: 0.8125rem;
+                      font-weight: bold;
+                      color: darkblue;
                     "
                   >
-                  </v-icon>
-                  <div>
-                    <p class="ml-2 font-weight-bold" style="font-size: 10px">
-                      Withdraw Earning
-                    </p>
-                    <p
-                      class="ml-2"
-                      style="font-size: 10px; color: rgb(130, 127, 127)"
-                    >
-                      12:40 am
-                    </p>
-                  </div>
-
-                  <span style="font-size: 10px; margin-left: 60px" class="mt-2"
-                    >$4,120</span
+                    Top Categories
+                  </p>
+                  <p
+                    style="font-size: 0.625rem; color: rgb(130, 127, 127)"
+                    class="mt-2"
                   >
-                </div>
-
-                <div class="d-flex mt-5">
-                  <v-icon
-                    icon="mdi-checkbook"
-                    color="white"
-                    class="wallet"
-                    size="18"
-                    style="
-                      width: 35px;
-                      height: 35px;
-                      border-radius: 10px;
-                      background-color: #5d5ee1;
-                    "
-                  >
-                  </v-icon>
-                  <div>
-                    <p class="ml-2 font-weight-bold" style="font-size: 10px">
-                      Paying Website tax
-                    </p>
-                    <p
-                      class="ml-2"
-                      style="font-size: 10px; color: rgb(130, 127, 127)"
-                    >
-                      10:20 am
-                    </p>
+                    Explore your top categories and keep shopping with cashback
+                  </p>
+                </v-container>
+                <v-container class="d-flex top2" width="300">
+                  <div class="box1">
+                    <v-icon
+                      icon="mdi-shoe-print"
+                      class="mt-3 ml-4"
+                      color="amber-darken-1"
+                    ></v-icon>
+                    <div>
+                      <p
+                        class="text-center mt-3 text-primary"
+                        style="font-size: 0.75rem; font-weight: bold"
+                      >
+                        Footerwear
+                      </p>
+                      <p
+                        class="ml-5 mt-1"
+                        style="font-size: 0.625rem; color: rgb(130, 127, 127)"
+                      >
+                        18 941 units
+                      </p>
+                    </div>
                   </div>
+                  <div class="box2">
+                    <v-icon
+                      icon="mdi-mixed-martial-arts"
+                      class="mt-3 ml-4"
+                      color="teal-accent-4"
+                    ></v-icon>
 
-                  <span style="font-size: 10px; margin-left: 55px" class="mt-2"
-                    >- $230</span
-                  >
-                </div>
-              </v-container>
-              <v-container class="top">
-                <p
-                  class="mr-10"
-                  style="font-size: 13px; font-weight: bold; color: darkblue"
-                >
-                  Top Categories
-                </p>
-                <p
-                  style="font-size: 10px; color: rgb(130, 127, 127)"
-                  class="mt-2"
-                >
-                  Explore your top categories and keep shopping with cashback
-                </p>
-              </v-container>
-              <v-container class="d-flex top2" width="300">
-                <div class="box1">
-                  <v-icon
-                    icon="mdi-shoe-print"
-                    class="mt-3 ml-4"
-                    color="amber-darken-1"
-                  ></v-icon>
-                  <div>
-                    <p
-                      class="text-center mt-3 text-primary"
-                      style="font-size: 12px; font-weight: bold"
-                    >
-                      Footerwear
-                    </p>
-                    <p
-                      class="ml-5 mt-1"
-                      style="font-size: 10px; color: rgb(130, 127, 127)"
-                    >
-                      18 941 units
-                    </p>
+                    <div>
+                      <p
+                        class="mt-3 text-center text-primary"
+                        style="font-size: 0.75rem; font-weight: bold"
+                      >
+                        Accessories
+                      </p>
+                      <p
+                        class="ml-5 mt-1"
+                        style="font-size: 0.625rem; color: rgb(130, 127, 127)"
+                      >
+                        26 061 units
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div class="box2">
-                  <v-icon
-                    icon="mdi-mixed-martial-arts"
-                    class="mt-3 ml-4"
-                    color="teal-accent-4"
-                  ></v-icon>
-
-                  <div>
-                    <p
-                      class="mt-3 text-center text-primary"
-                      style="font-size: 12px; font-weight: bold"
-                    >
-                      Accessories
-                    </p>
-                    <p
-                      class="ml-5 mt-1"
-                      style="font-size: 10px; color: rgb(130, 127, 127)"
-                    >
-                      26 061 units
-                    </p>
-                  </div>
-                </div>
+                </v-container>
               </v-container>
-            </v-container>
-          </v-sheet>
-        </v-col>
-      </v-row>
-    </v-layout>
-
-    <v-card class="overlay-card">
-      <v-container class="d-flex flex-column align-center justify-center pa-2">
-        <div class="avatar-container mb-1 mt-10">
-          <v-avatar size="40">
-            <v-img alt="John" src="@/imges/icons/b.jpg"></v-img>
-          </v-avatar>
-        </div>
-        <v-text
-          class="text-caption mb-0 mt-0 text-primary"
-          style="font-weight: 500"
-        >
-          Sally Hawkins
-        </v-text>
-        <v-card-actions class="pa-2 mb-4 mt-0">
-          <v-btn
-            variant="tonal"
-            style="font-weight: 600"
-            color="pink-accent-4"
-            class="rounded-xl pt-1 override-button mb-5"
-            size="x-small"
-          >
-            Upgrade
-          </v-btn>
-        </v-card-actions>
-      </v-container>
-    </v-card>
-  </v-container>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-layout>
+    </v-container>
+  </v-app>
 </template>
 
 <!-- <template>
@@ -701,6 +834,7 @@
 
 <script setup>
 // import Chart from "chart.js/auto";
+import { onClickOutside } from '@vueuse/core'
 
 import NavigationBar from "./NavigationBar.vue";
 import ColumnChart from "./ColumnChart.vue";
@@ -708,6 +842,54 @@ import { useDate } from "vuetify";
 // import { onMounted } from "vue";
 // import ApexCharts from "apexcharts";
 // import { onMounted } from "vue";
+import { ref, computed } from "vue";
+import { useDisplay } from "vuetify";
+
+// Destructure only the keys you want to use
+const { lgAndUp, mdAndDown, smAndDown, smAndUp, mdAndUp, name } = useDisplay();
+
+const height = computed(() => {
+  switch (name.value) {
+    case "md":
+      return 300;
+    case "sm":
+      return 600;
+    case "xs":
+      return 600;
+  }
+
+  return undefined;
+});
+const hight_base = computed(() => {
+  switch (name.value) {
+    case "lg":
+      return "85vh";
+    case "md":
+      return "130vh";
+    case "sm":
+      return "170vh";
+    case "xs":
+      return "180vh";
+  }
+  return undefined;
+});
+
+const NavBavref = ref(null);
+const navbarBurgerRef = ref(null);
+console.log(NavBavref);
+
+const display = ref(true);
+console.log(display.value);
+
+ onClickOutside(NavBavref, () => {
+   
+    display.value = true;
+   console.log(display.value);
+  
+   
+  }, {
+    ignore: [navbarBurgerRef]
+  })
 
 const menu = [{ title: "Copy" }, { title: "Delete" }, { title: "Edit" }];
 
@@ -759,6 +941,7 @@ const showMenu = ref(false)
   }*/
 
 // onMounted(() => {
+
 //   const ctx = document.getElementById("myChart");
 //   console.log(ctx);
 
@@ -821,8 +1004,15 @@ const showMenu = ref(false)
 // });
 const date = useDate();
 
-const foot = date.format("2010-04-13", "fullDate");
-console.log(foot);
+// const foot = date.format("2010-04-13", "fullDate");
+// console.log(foot);
+
+
+
+const showNavBar = () => {
+  display.value = !display.value;
+  console.log(display.value);
+};
 
 const items = [
   { key: 1, title: "Yes", value: 50 },
@@ -888,23 +1078,17 @@ body {
   --v-btn__content-background-color: pink-accent-4;
 } */
 .title {
-  width: 600px;
-  padding: 10px;
+  width: 39.26701570680628vw;
+  padding: 0.6544502617801047vw;
   display: flex;
   justify-content: space-between;
 }
 
 .cards {
   border: 1px solid black;
-  width: 600px;
-  padding: 30px;
-  margin-top: 20px;
-}
-
-.dash {
-  display: flex;
-  justify-content: space-between;
-  margin-top: -58px;
+  width: 39.26701570680628vw;
+  padding: 1.963350785340314vw;
+  margin-top: 1.308900523560209vw;
 }
 
 .cont {
@@ -912,31 +1096,16 @@ body {
 }
 
 .icons {
-  margin-right: -100px;
+  margin-right: -6.544502617801047vw;
 }
 
-.icons .one,
+.one,
 .two {
   margin-right: 10px;
 
   border: 1px solid rgb(229, 226, 226);
   padding: 20px;
   border-radius: 10px;
-}
-
-.overlay-card {
-  z-index: 1000;
-  position: absolute;
-  bottom: 70px;
-  left: 50px;
-  width: 110px;
-  height: 120px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .avatar-container {
@@ -969,10 +1138,10 @@ body {
 } */
 
 .layout {
-  margin-top: 50px;
-  margin-bottom: 60px;
-  margin-left: 60px;
-  margin-right: 60px;
+  margin-top: 3.272251308900524vw;
+  margin-bottom: 3.926701570680628vw;
+  margin-left: 3.926701570680628vw;
+  margin-right: 3.926701570680628vw;
 }
 
 /* Additional styling for the cards */
@@ -994,12 +1163,13 @@ body {
   flex-wrap: wrap;
 
   margin: auto;
-  margin-left: -10px;
+  margin-left: -0.6544502617801047vw;
 }
 
 .rcol {
-  margin-left: -50px;
-  margin-right: 55px;
+  margin-left: -3.27225130890052vw;
+
+  margin-right: 3.59vw;
 }
 
 .card-color {
@@ -1008,18 +1178,18 @@ body {
 }
 
 .market {
-  padding-bottom: 12px;
-  margin-top: 25px;
-  margin-left: 10px;
+  padding-bottom: 0.78vw;
+  margin-top: 1.63vw;
+  margin-left: 0.65vw;
   font-weight: bolder;
 
-  height: 300px;
+  height: 19.63vw;
 }
 
 .card-market {
   margin-top: -20px;
-
-  width: 460px;
+  width: 30.10471204188482vw;
+  min-width: 350px;
   margin-left: -31px;
 }
 
@@ -1038,12 +1208,17 @@ body {
   width: 100px;
   height: 100px;
   margin-left: 360px;
+
   margin-top: -80px;
 }
 
 /* Adjust the center text size for the smaller chart */
 .pie-chart-container .text-caption {
   font-size: 0.7rem;
+}
+
+.plus-position {
+  position: relative;
 }
 
 .plus {
@@ -1055,23 +1230,23 @@ body {
   background: red;
   color: white;
 
-  position: fixed;
-  bottom: 510px;
-  left: 1365px;
+  position: absolute;
+  bottom: 40%;
+  left: 93%;
 }
 
 .balance {
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: black;
 }
 
 .triangle {
-  margin-left: -12px;
+  margin-left: 0.78534031vw;
 }
 
 .summary {
-  margin-top: -50px;
-  margin-left: -20px;
+  margin-top: -3.27225131vw;
+  margin-left: -1.30890052vw;
 }
 
 .menu {
@@ -1079,23 +1254,23 @@ body {
 }
 
 .list {
-  margin-top: -15px;
+  margin-top: -0.98167539vw;
 }
 .listTitle {
-  font-size: 10px;
+  font-size: 0.625rem;
   color: rgb(113, 113, 113);
 }
 
 .wallet {
-  margin-left: -15px;
+  margin-left: -0.98167539vw;
 }
 
 .top {
-  margin-left: -16px;
+  margin-left: -1.04712042vw;
 }
 .top2 {
-  margin-left: -16px;
-  margin-top: -10px;
+  margin-left: -1.04712042vw;
+  margin-top: -0.65445026vw;
 }
 
 .box1 {
@@ -1124,4 +1299,32 @@ body {
 .chart {
   width: 100px;
 }
+
+/*@media (max-width: 600px) {
+  .layout {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+ 
+}*/
+
+/* from deep seek */
+
+/* @media (max-width: 960px) {
+      .pa-15 {
+        padding: 24px !important;
+      }
+      .pa-16 {
+        padding: 24px !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .pa-15 {
+        padding: 16px !important;
+      }
+      .pa-16 {
+        padding: 16px !important;
+      }
+    } */
 </style>
