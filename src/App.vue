@@ -1,7 +1,7 @@
 <template>
 
   <teleport to='body' >
-<v-app style="width:100%" class="d-flex justify-center align-center">
+<v-app style="width:100%" flat class="d-flex justify-center align-center">
     
       
       <DashBoard/>

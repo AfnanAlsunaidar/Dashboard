@@ -1,9 +1,19 @@
 <template>
+    <!-- <v-app-bar app color="indigo" dark>
+      <v-app-bar-nav-icon @click="drawer = !drawer" class="d-md-none" />
+      <v-toolbar-title>Responsive Vuetify Layout</v-toolbar-title>
+    </v-app-bar> -->
   <v-navigation-drawer
+    
+    
     variant="outlined"
-    width="160"
-    style="background: #f2f4fc"
-    class="text-primary"
+    :width="lgAndUp?'160':''"
+    
+    :style="lgAndUp?'background: #f2f4fc;border-radius: 24px 0 0 24px;' : 'background: #f2f4fc;border-radius: none;background: rgb(255, 255, 255);height:110vh;width:40vw; margin-bottom:680px'"
+    class="text-primary  "
+    :location="$vuetify.display.mdAndDown ? 'bottom' : undefined"
+    
+   
   >
     <v-container fluid class="d-flex align-center" height="100">
       <div class="logo">)<span class="mt-1">2</span>(</div>
@@ -16,30 +26,66 @@
           v-for="(item, i) in items"
           :key="i"
           :value="item"
-         
           density="compact"
         >
           <template v-slot:prepend>
             <v-icon
               :icon="item.icon"
-              :color="
-                item.icon === 'mdi-chart-pie' ? 'primary' : 'grey'
-              "
+              :color="item.icon === 'mdi-chart-pie' ? 'primary' : 'grey'"
             ></v-icon>
           </template>
 
-          <v-list-item-title class="nav-item text-caption"
-          :class="item.text==='SUMMARY' ? 'text-primary' : 'text-grey'"
+          <v-list-item-title
+            class="nav-item text-caption"
+            :class="item.text === 'SUMMARY' ? 'text-primary' : 'text-grey'"
           >
             {{ item.text }}
           </v-list-item-title>
         </v-list-item>
       </v-list>
+      
     </v-container>
+      <v-card :class="lgAndUp?'overlay-card':'mt-16'"
+      
+      >
+      <v-container class="d-flex flex-column align-center justify-center pa-2">
+        <div class="avatar-container mb-1 mt-10">
+          <v-avatar size="40">
+            <v-img alt="John" src="@/imges/icons/b.jpg"></v-img>
+          </v-avatar>
+        </div>
+        <p
+          class="text-caption mb-0 mt-0 text-primary"
+          style="font-weight: 500"
+        >
+          Sally Hawkins
+      </p>
+        <v-card-actions class="pa-2 mb-4 mt-0">
+          <v-btn
+            variant="tonal"
+            style="font-weight: 600"
+            color="pink-accent-4"
+            class="rounded-xl pt-1 override-button mb-5"
+            size="x-small"
+          >
+            Upgrade
+          </v-btn>
+        </v-card-actions>
+      </v-container>
+    </v-card>
   </v-navigation-drawer>
+
 </template>
 
 <script setup>
+//import { ref } from "vue";
+
+//const drawer = ref(false);
+import { useDisplay } from "vuetify";
+
+// Destructure only the keys you want to use
+const { lgAndUp } = useDisplay();
+
 const items = [
   { text: "SUMMARY", icon: "mdi-chart-pie" },
   { text: "TRANSACTION", icon: "mdi-swap-horizontal" },
@@ -47,6 +93,8 @@ const items = [
   { text: "PROJECT", icon: "mdi-cart" }, // Fixed icon
   { text: "CATEGORY", icon: "mdi-border-all" },
 ];
+
+
 </script>
 
 <style scoped>
@@ -98,4 +146,87 @@ const items = [
   font-weight: 1000;
   margin-top: 3px;
 }
+
+.overlay-card {
+  z-index: 1000;
+  position: absolute;
+  bottom: 25px;
+  left: -25px;
+  width: 110px;
+  height: 120px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.overlay-card2{
+  z-index: 1000;
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  right:10px;
+  width: 110px;
+  height: 120px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
+
+<!-- <template>
+  <v-app>
+  App Bar 
+    <v-app-bar app color="indigo" dark>
+      <v-app-bar-nav-icon @click="drawer = !drawer" class="d-md-none" />
+      <v-toolbar-title>Responsive Vuetify Layout</v-toolbar-title>
+    </v-app-bar>
+
+    Navigation Drawer 
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      :temporary="$vuetify.display.smAndDown"
+      :permanent="$vuetify.display.mdAndUp"
+    >
+      <v-list>
+        <v-list-item v-for="item in menu" :key="item.title" link>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    Main Content 
+    <v-main>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="12" sm="6" md="4" lg="3" v-for="n in 8" :key="n">
+            <v-card class="pa-4" outlined>
+              <v-card-title>Card {{ n }}</v-card-title>
+              <v-card-text>
+                This card resizes automatically on different screens.
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const drawer = ref(false);
+
+const menu = [
+  { title: "Home" },
+  { title: "About" },
+  { title: "Services" },
+  { title: "Contact" },
+];
+</script> -->
